@@ -5,11 +5,12 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PeliculasRoutingModule } from './peliculas-routing.module';
+import { CardComponent } from './components/card/card.component';
 
 
 @NgModule({
   declarations: [
-    LayoutPageComponent
+    LayoutPageComponent, CardComponent
   ],
   imports: [
     CommonModule,
