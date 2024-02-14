@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
-import { canActivateGuard, canMatchGuard } from './auth/guards/auth.guards';
-import { canActivateGuardLogin, canMatchGuardLogin } from './auth/guards/public.guards';
 
 const routes: Routes = [
   {
@@ -23,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'heroes',
+    redirectTo: 'peliculas',
     pathMatch: 'full'
   },
   {

@@ -6,11 +6,14 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PeliculasRoutingModule } from './peliculas-routing.module';
 import { CardComponent } from './components/card/card.component';
+import { ListPageComponent } from './pages/list-page/list-page.component';
 
 
 @NgModule({
   declarations: [
-    LayoutPageComponent, CardComponent
+    LayoutPageComponent,
+    CardComponent,
+    ListPageComponent
   ],
   imports: [
     CommonModule,

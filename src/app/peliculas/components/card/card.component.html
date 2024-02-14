@@ -1,7 +1,11 @@
-<mat-card>
-
-  <button mat-button mat-raised [routerLink]="['/peliculas', pelicula.id]">
-    <img mat-card-image src="{{pelicula.poster_path}}">
+<!-- <mat-card>
+  <mat-card-title>{{pelicula.title}}</mat-card-title>
+  <button mat-button mat-raised [routerLink]="['/peliculas', pelicula.id]" style="width: 50px;">
+    <img [src]="'https://image.tmdb.org/t/p/w500' + (pelicula.poster_path || pelicula.backdrop_path)" alt="{{ pelicula.title }} Poster" style="width: 100%;">
   </button>
 
-</mat-card>
+</mat-card> -->
+<button mat-button class="example-button">
+  <img [src]="'https://image.tmdb.org/t/p/w500' + (pelicula.poster_path || pelicula.backdrop_path)" alt="{{ pelicula.title }} Poster" style="width: 100%;">
+</button>
+

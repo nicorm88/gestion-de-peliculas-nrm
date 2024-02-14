@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Pelicula } from '../../interface/pelicula.interface';
+import { Pelicula } from '../../interfaces/pelicula.interface';
 
 @Component({
   selector: 'peliculas-pelicula-card',
