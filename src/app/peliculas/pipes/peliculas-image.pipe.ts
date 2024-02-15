@@ -9,7 +9,7 @@ export class PeliculaImagePipe implements PipeTransform {
 
   transform(pelicula: Pelicula|PeliculaBuscada): string {
     if(!pelicula.poster_path){
-      return 'assets/no-image2.png'
+      return 'assets/no-image2.jpg'
     }
 
     return 'https://image.tmdb.org/t/p/w500' + (pelicula.poster_path || pelicula.backdrop_path);
