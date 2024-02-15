@@ -5,7 +5,9 @@
   </button>
 
 </mat-card> -->
-<button mat-button class="example-button">
-  <img [src]="'https://image.tmdb.org/t/p/w500' + (pelicula.poster_path || pelicula.backdrop_path)" alt="{{ pelicula.title }} Poster" style="width: 100%;">
-</button>
+<a (click)="navigateToDetails(pelicula.id)">
+  <mat-card class="example-card" style="width: 100%; border-radius: 20px;">
+    <img [src]=" pelicula | peliculaImage" alt="{{ pelicula.title }} Poster" style="width: 100%; border-radius: 20px;">
+  </mat-card>
+</a>
 

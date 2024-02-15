@@ -1,0 +1,32 @@
+<ng-template #divloading>
+  <mat-grid-list cols="1">
+    <mat-grid-tile>
+      <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+<div *ngIf="pelicula; else divloading" class="grid justify-center p-2" >
+  <mat-card class="col-10 sm:col-6 md:col-4 lg:col-3 xl:col-2" style="width: 1000px; height: 650px; box-shadow: 1px 1px 30px rgba(0, 0, 0, 1); margin-top: 30px; background-color: #6A6DA6;">
+    <mat-card-header>
+      <mat-card-title>{{ pelicula.title }}</mat-card-title>
+      <mat-card-subtitle>{{ pelicula.original_language }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="flex items-center">
+      <img mat-card-image class="mr-2" [src]="pelicula | peliculaImage" style="width: 233px; height: 350px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 1); background-color: white;">
+      <div>
+        <p>{{ pelicula.overview }}</p>
+        <!-- Aquí puedes agregar más información si lo deseas -->
+        <mat-card-actions>
+          <button mat-button mat-raised color="primary" [routerLink]="['/peliculas/list']">
+            <mat-icon>arrow_back</mat-icon>
+            Volver
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<ng-template #divloading>Loading...</ng-template>
+
+

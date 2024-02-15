@@ -7,13 +7,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PeliculasRoutingModule } from './peliculas-routing.module';
 import { CardComponent } from './components/card/card.component';
 import { ListPageComponent } from './pages/list-page/list-page.component';
+import { PeliculaPageComponent } from './pages/pelicula-page/pelicula-page.component';
+import { PeliculaImagePipe } from './pipes/peliculas-image.pipe';
 
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
     CardComponent,
-    ListPageComponent
+    ListPageComponent,
+    PeliculaPageComponent,
+    PeliculaImagePipe
   ],
   imports: [
     CommonModule,

@@ -1,22 +1,26 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Pelicula, TopLevel } from "../interfaces/pelicula.interface";
+import { Pelicula, PeliculaBuscada, TopLevel } from "../interfaces/pelicula.interface";
 import { Observable, catchError, map, of } from "rxjs";
 import { FILM_HEADER, enviroments } from "src/environments/environments";
+import { getLocaleDateFormat } from "@angular/common";
+import { FechaHoraService } from "./fecha.service";
 
 @Injectable({providedIn: 'root'})
 export class PeliculaService {
 
   private baseUrl: string = enviroments.baseUrl
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private fechaService: FechaHoraService
+    ) { }
 
   getPeliculas(): Observable<TopLevel> {
-    return this.http.get<TopLevel>(`${ this.baseUrl }/discover/movie`, {headers:FILM_HEADER})
+    return this.http.get<TopLevel>(`${ this.baseUrl }/discover/movie?primary_release_date.lte=${this.fechaService.obtenerFechaActual()}&sort_by=primary_release_date.desc`, {headers:FILM_HEADER})
   }
 
-  getPeliculaById(id: string): Observable<Pelicula | undefined> {
-    return this.http.get<Pelicula>(`${ this.baseUrl }/movie/${ id }`)
-    .pipe( catchError( error => of(undefined)));
+  getPeliculaById(id: string): Observable<PeliculaBuscada> {
+    return this.http.get<PeliculaBuscada>(`${ this.baseUrl }/movie/${ id }`, {headers:FILM_HEADER})
   }
 
   getSuggestions(query: string): Observable<Pelicula[]> {
