@@ -34,4 +34,9 @@ export class PeliculaPageComponent implements OnInit{
         return;
       } )
   }
+
+  montarURL(pelicula:PeliculaBuscada): string{
+    console.log("https://image.tmdb.org/t/p/w500"+pelicula.backdrop_path)
+    return "https://image.tmdb.org/t/p/w500"+pelicula.backdrop_path
+  }
 }

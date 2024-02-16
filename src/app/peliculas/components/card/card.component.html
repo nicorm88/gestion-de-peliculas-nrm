@@ -5,9 +5,31 @@
   </button>
 
 </mat-card> -->
-<a (click)="navigateToDetails(pelicula.id)">
-  <mat-card class="example-card" style="border-radius: 20px; box-shadow: 5px 5px 10px black;">
+<!-- <a (click)="navigateToDetails(pelicula.id)">
+  <mat-card class="example-card" style="border-radius: 20px; box-shadow: 5px 5px 10px black; width: 100%;">
     <img [src]=" pelicula | peliculaImage" alt="{{ pelicula.title }} Poster" style="border-radius: 20px; width: 100%;">
   </mat-card>
-</a>
+</a> -->
+
+
+  <div class="card">
+    <img [src]=" pelicula | peliculaImage" alt="{{ pelicula.title }} Poster">
+      <div class="descriptions">
+          <h1>{{pelicula.title}}</h1>
+          <div class="overview">
+            <p>
+                {{pelicula.overview}}
+            </p>
+          </div>
+          <button (click)="navigateToDetails(pelicula.id)">
+              Ver mas detalles
+          </button>
+      </div>
+  </div>
+
+
+
+
+
+
 

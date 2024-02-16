@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'peliculas-pelicula-card',
   templateUrl: './card.component.html',
-  styles: [
+  styleUrls: [
+    './card.component.scss'
   ]
 })
 export class CardComponent implements OnInit{

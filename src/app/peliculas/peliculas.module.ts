@@ -9,7 +9,8 @@ import { CardComponent } from './components/card/card.component';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { PeliculaPageComponent } from './pages/pelicula-page/pelicula-page.component';
 import { PeliculaImagePipe } from './pipes/peliculas-image.pipe';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle'; // Importa MatButtonToggleModule aquí
 
 @NgModule({
   declarations: [
@@ -17,13 +18,15 @@ import { PeliculaImagePipe } from './pipes/peliculas-image.pipe';
     CardComponent,
     ListPageComponent,
     PeliculaPageComponent,
-    PeliculaImagePipe
+    PeliculaImagePipe,
   ],
   imports: [
     CommonModule,
     PeliculasRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatButtonToggleModule // Añade MatButtonToggleModule aquí
   ]
 })
 export class PeliculasModule { }
