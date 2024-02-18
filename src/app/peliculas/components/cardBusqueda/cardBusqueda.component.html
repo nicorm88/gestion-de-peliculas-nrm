@@ -1,0 +1,35 @@
+<!-- <mat-card>
+  <mat-card-title>{{pelicula.title}}</mat-card-title>
+  <button mat-button mat-raised [routerLink]="['/peliculas', pelicula.id]" style="width: 50px;">
+    <img [src]="'https://image.tmdb.org/t/p/w500' + (pelicula.poster_path || pelicula.backdrop_path)" alt="{{ pelicula.title }} Poster" style="width: 100%;">
+  </button>
+
+</mat-card> -->
+<!-- <a (click)="navigateToDetails(pelicula.id)">
+  <mat-card class="example-card" style="border-radius: 20px; box-shadow: 5px 5px 10px black; width: 100%;">
+    <img [src]=" pelicula | peliculaImage" alt="{{ pelicula.title }} Poster" style="border-radius: 20px; width: 100%;">
+  </mat-card>
+</a> -->
+
+
+  <div class="card">
+    <img [src]=" pelicula | peliculaImage" alt="{{ pelicula.name }} Poster">
+      <div class="descriptions">
+          <h1>{{pelicula.name}}</h1>
+          <div class="overview">
+            <p>
+                {{pelicula.overview}}
+            </p>
+          </div>
+          <button (click)="navigateToDetails(pelicula.id)">
+              Ver mas detalles
+          </button>
+      </div>
+  </div>
+
+
+
+
+
+
+

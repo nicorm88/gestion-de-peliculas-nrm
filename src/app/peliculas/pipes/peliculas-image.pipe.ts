@@ -1,3 +1,4 @@
+import { Result } from '../interfaces/busqueda.interface';
 import { Pelicula, PeliculaBuscada } from './../interfaces/pelicula.interface';
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -7,7 +8,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PeliculaImagePipe implements PipeTransform {
 
-  transform(pelicula: Pelicula|PeliculaBuscada): string {
+  transform(pelicula: Pelicula|PeliculaBuscada|Result): string {
     if(!pelicula.poster_path){
       return 'assets/no-image2.jpg'
     }

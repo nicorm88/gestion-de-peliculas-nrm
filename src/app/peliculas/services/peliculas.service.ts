@@ -3,8 +3,8 @@ import { Injectable } from "@angular/core";
 import { Pelicula, PeliculaBuscada, TopLevel } from "../interfaces/pelicula.interface";
 import { Observable, catchError, map, of } from "rxjs";
 import { FILM_HEADER, enviroments } from "src/environments/environments";
-import { getLocaleDateFormat } from "@angular/common";
 import { FechaHoraService } from "./fecha.service";
+import { TopLevel as TopLevelBusqueda } from "../interfaces/busqueda.interface";
 
 @Injectable({providedIn: 'root'})
 export class PeliculaService {
@@ -23,8 +23,8 @@ export class PeliculaService {
     return this.http.get<PeliculaBuscada>(`${ this.baseUrl }/movie/${ id }`, {headers:FILM_HEADER})
   }
 
-  getSuggestions(query: string): Observable<Pelicula[]> {
-    return this.http.get<Pelicula[]>(`${this.baseUrl}/peliculas?q=${ query }&_limit=6`)
+  getSuggestions(query: string,page:number): Observable<TopLevelBusqueda> {
+    return this.http.get<TopLevelBusqueda>(`${this.baseUrl}/search/collection?query=${ query }&page=${page}`, {headers:FILM_HEADER})
   }
 
   addHero(hero: Pelicula): Observable<Pelicula>{

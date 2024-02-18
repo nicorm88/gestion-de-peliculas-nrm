@@ -11,14 +11,18 @@ import { PeliculaPageComponent } from './pages/pelicula-page/pelicula-page.compo
 import { PeliculaImagePipe } from './pipes/peliculas-image.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'; // Importa MatButtonToggleModule aquí
+import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { CardBusquedaComponent } from './components/cardBusqueda/cardBusqueda.component';
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
     CardComponent,
+    CardBusquedaComponent,
     ListPageComponent,
     PeliculaPageComponent,
     PeliculaImagePipe,
+    SearchPageComponent
   ],
   imports: [
     CommonModule,

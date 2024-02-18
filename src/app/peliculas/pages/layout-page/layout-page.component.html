@@ -1,7 +1,8 @@
+
 <mat-sidenav-container fullscreen>
 
   <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px'}">
-    <mat-toolbar style="background-color: #006d77; display: flex; justify-content: space-between;">
+    <mat-toolbar style="background-color: #479FAC; display: flex; justify-content: space-between;">
       <span style="color: white">Menú</span>
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon style="color: white">menu</mat-icon>
@@ -18,14 +19,14 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-toolbar style="background-color: #006d77; display: flex; justify-content: space-between;">
+  <mat-toolbar style="background-color: #479FAC; display: flex; justify-content: space-between;">
     <div>
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon style="color: white">menu</mat-icon>
       </button>
     </div>
       <div>
-      <span>FilmFlow</span>
+      <span class="filmflow">FilmFlow</span>
       </div>
     <div>
       <button mat-button (click)="onLogout()" style="background-color: white;">
