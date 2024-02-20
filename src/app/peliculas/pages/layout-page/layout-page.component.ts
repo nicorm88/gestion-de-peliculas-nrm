@@ -1,5 +1,6 @@
+import { Usuario } from './../../../auth/interfaces/usuario';
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/auth/interfaces/user.interface';
+
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -22,16 +23,20 @@ export class LayoutPageComponent implements OnInit{
 
   public sidebarItems = [
     { label: 'Listado', icon: 'label', url: './list' },
-    { label: 'Añadir', icon: 'add', url: './new-pelicula' },
-    { label: 'Buscar', icon: 'search', url: './search' }
+    { label: 'Buscar', icon: 'search', url: './search' },
+    { label: 'Usuarios', icon: 'account_circle', url: './users' }
   ]
 
   onLogout():void{
-    this.authService.logout();
+    this.authService.doLogout();
     this.router.navigate(['/auth'])
   }
 
-  get user(): User | undefined{
+  get user(): Usuario | undefined{
     return this.authService.currentUser
+  }
+
+  get id_rol(): string | null{
+    return localStorage.getItem('id_rol')
   }
 }

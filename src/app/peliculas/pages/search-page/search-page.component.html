@@ -8,20 +8,8 @@
       matInput
       [formControl]="searchInput"
       (input)="searchPelicula()"
-      [matAutocomplete]="auto"
     />
 
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectedOption( $event )">
-
-      <mat-option *ngFor="let pelicula of peliculas" [value]="pelicula">
-        {{pelicula.name}}
-      </mat-option>
-
-      <mat-option *ngIf="peliculas.length === 0 && searchInput.value" value="">
-        No se encontró ningúna pelicula con el término {{ searchInput.value }}
-      </mat-option>
-
-    </mat-autocomplete>
 
   </mat-form-field>
 

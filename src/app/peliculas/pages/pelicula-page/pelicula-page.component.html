@@ -6,7 +6,7 @@
   </mat-grid-list>
 </ng-template>
 
-<div *ngIf="pelicula; else divloading" class="movie_card" id="tomb">
+<div *ngIf="pelicula; else divloading" class="movie_card" id="tomb" >
   <div class="info_section">
     <div class="movie_header">
       <img class="locandina" [src]="pelicula | peliculaImage"/>
@@ -29,7 +29,7 @@
       </ul>
     </div>
   </div>
-  <div class="blur_back tomb_back" style="background: url(https://image.tmdb.org/t/p/w500{{pelicula.backdrop_path}});"></div>
+  <div class="blur_back tomb_back"><img src="https://image.tmdb.org/t/p/w500{{pelicula.backdrop_path}}" style="width: 100%;"/></div>
 </div>
 
 

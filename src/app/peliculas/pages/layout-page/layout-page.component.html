@@ -9,11 +9,21 @@
       </button>
     </mat-toolbar>
 
-    <mat-nav-list *ngFor="let sidebarItem of sidebarItems">
+    <mat-nav-list>
 
-      <mat-list-item routerLink="{{sidebarItem.url}}" (click)="sidenav.toggle()">
-        <mat-icon matListItemIcon>{{sidebarItem.icon}}</mat-icon>
-        {{sidebarItem.label}}
+      <mat-list-item routerLink="./list" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>label</mat-icon>
+        Listado
+      </mat-list-item>
+
+      <mat-list-item routerLink="./search" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>search</mat-icon>
+        Buscar
+      </mat-list-item>
+
+      <mat-list-item *ngIf="id_rol=='1'" routerLink="./users" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>account_circle</mat-icon>
+        Usuarios
       </mat-list-item>
 
     </mat-nav-list>

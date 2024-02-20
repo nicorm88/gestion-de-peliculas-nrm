@@ -10,3 +10,8 @@ export const FILM_HEADER = new HttpHeaders({
   'Authorization': `Bearer ${bearer_token}`,
   'Content-Type': 'application/json'
 })
+
+
+export const enviromentsSGE = {
+  baseUrl: 'http://nico.profesorweb.es/app.radfpd.es/api/private'
+}

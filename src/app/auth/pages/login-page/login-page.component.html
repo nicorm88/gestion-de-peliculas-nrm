@@ -66,11 +66,12 @@ body{
     bottom: -30px;
 }
 .filmflow{
+  margin-top: -50px;
   text-align: center;
   color: #479FAC;
   width: 100%;
   font-weight:bold;
-  font-size: 90px;
+  font-size: 80px;
   text-shadow: -1px 0 #414D68, 0 1px #414D68, 1px 0 #414D68, 0 -1px #414D68, -2px 2px 0 #414D68, 2px 2px 0 #414D68, 1px 1px #414D68, 2px 2px #414D68, 3px 3px #414D68, 4px 4px #414D68, 5px 5px #414D68;
 }
 form{
@@ -166,16 +167,16 @@ button{
     <div>
       <h1 class="filmflow">FilmFlow</h1>
     </div>
-    <form>
+    <form [formGroup]="loginForm">
         <h3>Login Here</h3>
 
         <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
+        <input formControlName="username" type="text" placeholder="Email or Phone" id="username" required>
 
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
+        <input formControlName="password" type="password" placeholder="Password" id="password" required>
 
-        <button>Log In</button>
+        <button type="submit" (click)="acceder()">Log In</button>
         <div class="flex justify-content-end mt-5">
           <a routerLink="/auth/new-account">No tengo cuenta de usuario</a>
         </div>

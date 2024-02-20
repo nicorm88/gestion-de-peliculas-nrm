@@ -1,41 +1,26 @@
-import { Observable, map, tap } from "rxjs";
-import { AuthService } from "../services/auth.service";
-import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivateFn, CanMatchFn, Route, Router, RouterStateSnapshot, UrlSegment } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
-const checkAuthStatusLogin = (): Observable<boolean> => {
-  const authService: AuthService = inject(AuthService);
-  const router: Router = inject(Router);
+@Injectable({
+  providedIn: 'root'
+})
 
-  return authService.checkAuthentication()
-    .pipe(
-      tap( isAuthenticated => console.log("Authenticated: ",isAuthenticated) ),
-      tap( isAuthenticated => {
-        if (isAuthenticated) {
-          router.navigate(['/heroes/list'])
-        }
-      }),
-      map(isAuthenticated => !isAuthenticated)
-    )
+export class MovieGuardService implements CanActivate {
+
+  constructor(public auth: AuthService, public router: Router) {}
+
+
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+
+    const response = await this.auth.isAuthenticated(state.url);
+
+    if (response) {
+      this.router.navigate(['/peliculas/list']);
+    }
+
+    return response;
+  }
+
 }
 
-
-export const canMatchGuardLogin: CanMatchFn = (
-  route: Route,
-  segments: UrlSegment[]
-) => {
-  console.log('CanMatchLogin');
-  console.log({ route, segments });
-
-  return checkAuthStatusLogin();
-}
-
-export const canActivateGuardLogin: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  console.log('CanActivateLogin');
-  console.log({ route, state });
-
-  return checkAuthStatusLogin();
-};

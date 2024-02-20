@@ -1,49 +1,93 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { enviroments } from "src/environments/environments";
-import { User } from '../interfaces/user.interface';
-import { Observable, catchError, map, of, tap } from "rxjs";
+import { enviromentsSGE } from 'src/environments/environments';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable, catchError, map, of, tap } from 'rxjs';
+import { ApiResponse } from '../interfaces/api-response';
+
+import { CommonService } from './common.service';
+import { Usuario } from '../interfaces/usuario';
+
+const urlSGE : string = enviromentsSGE.baseUrl;
 
 
-
-
-@Injectable({providedIn: 'root'})
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  private baseUrl = enviroments.baseUrl;
-  private user? : User;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService, private commonService: CommonService) {}
 
-  get currentUser(): User | undefined {
-    if (!this.user) return undefined;
+  user!:Usuario;
 
+  get currentUser() {
+    if (!this.user){
+      return undefined;
+    }
     return structuredClone(this.user);
   }
 
-  login( email: string, password: string ): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/users/1`)
-    .pipe(
-      tap( user => this.user = user ),
-      tap( user => localStorage.setItem('token','asjbakgbrugbakgbkfbffaflafabfleSFSF'))
-    )
+
+  doLogin(data: any) {
+    const body = JSON.stringify(data);
+    return this.http.post<ApiResponse>(`${urlSGE}/login.php`, body);
   }
 
-  logout(){
-    this.user = undefined;
+  public async isAuthenticated(url: string): Promise<boolean> {
+
+    let rutaSeleccionada: string;
+    const promise = new Promise<boolean>((resolve, reject) => {
+      rutaSeleccionada = url.substring(1);
+      rutaSeleccionada = rutaSeleccionada.split('/')[0];
+      this.http.get<ApiResponse>(`${urlSGE}/check_usuarios.php?ruta=${ rutaSeleccionada }`,  { headers: this.commonService.getHeaders() } )
+      .subscribe((response: ApiResponse) => {
+      resolve(response.ok);
+      });
+    });
+    return promise;
+  }
+
+  doLogout() {
+    const body = new FormData();
+    const usuario = localStorage.getItem('usuario')!;
+    body.append('user', usuario);
+    this.cookieService.deleteAll();
     localStorage.clear();
+    return this.http.post(`${urlSGE}/logout.php`, body);
   }
 
-  checkAuthentication(): Observable<boolean> {
-    if(!localStorage.getItem('token')) return of(false);
+  resetPassword(formularioCorreo: any) {
+    const body = JSON.stringify(formularioCorreo);
+    return this.http.post<ApiResponse>(`${urlSGE}/olvidar_pwd.php`, body, {headers: this.commonService.headers});
+  }
+
+  checkPassToken(tokenPasswd: string) {
+
+    const body = JSON.stringify({ token: tokenPasswd });
+
+    return this.http.post<ApiResponse>(`${urlSGE}/check_token_passwd.php`, body);
+  }
+
+  generateNewPass(data: any) {
+    const body = JSON.stringify(data);
+
+    return this.http.put<ApiResponse>(`${urlSGE}/reset_pass.php`, body);
+
+  }
+
+  checkAuthentication():Observable<boolean> {
+    if (!localStorage.getItem('token')) return of(false); //no necesitamos operacion asincrona
 
     const token = localStorage.getItem('token');
+    console.log("hola")
 
-    return this.http.get<User>(`${this.baseUrl}/users/1`)
+    return this.http.get<Usuario>(`${urlSGE}/usuario.php`)
       .pipe(
-        tap(user => this.user = user),
-        map(user => user? true : false),
-
-        catchError (err => of(false))
+        tap(user=>this.user=user),//tap: efecto secundario para almacenar el usuario
+        map(user=>!!user),//map: transformamos la salida, hacemos doble negación, negamos y negamos
+                          //Basicamente devolvemos true si hay un usuario
+                          //Es lo mismo que poner map ( user => user? true : false)
+        catchError(err=>of(false))//y si el backend devuelve error, es false
       )
   }
 }

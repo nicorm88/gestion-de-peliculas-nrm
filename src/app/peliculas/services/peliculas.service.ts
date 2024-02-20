@@ -24,7 +24,7 @@ export class PeliculaService {
   }
 
   getSuggestions(query: string,page:number): Observable<TopLevelBusqueda> {
-    return this.http.get<TopLevelBusqueda>(`${this.baseUrl}/search/collection?query=${ query }&page=${page}`, {headers:FILM_HEADER})
+    return this.http.get<TopLevelBusqueda>(`${this.baseUrl}/search/movie?query=${ query }&page=${page}`, {headers:FILM_HEADER})
   }
 
   addHero(hero: Pelicula): Observable<Pelicula>{

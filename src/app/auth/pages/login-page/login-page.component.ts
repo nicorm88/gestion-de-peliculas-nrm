@@ -3,11 +3,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { CommonService } from '../../services/common.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login-page.component.html',
+  styleUrls: []
 })
 export class LoginComponent implements OnInit {
 
@@ -39,16 +42,16 @@ export class LoginComponent implements OnInit {
   }
 
   async acceder() {
-
+    console.log("aa")
     if (this.loginForm.valid) {
 
       const data = this.loginForm.value;
       const RESPONSE = await this.authService.doLogin(data).toPromise();
-        // console.log(response);
-      if (RESPONSE.ok) {
+        console.log(RESPONSE);
+      if (RESPONSE?.ok) {
         if (RESPONSE.data.token) {
           this.cookieService.set('token', RESPONSE.data.token);
-          // console.log('ya he puesto el token');
+          console.log('ya he puesto el token');
           localStorage.setItem('token', RESPONSE.data.token);
           localStorage.setItem('usuario', RESPONSE.data.usuario);
           localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
@@ -58,7 +61,7 @@ export class LoginComponent implements OnInit {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${RESPONSE.data.token}`
           });
-          this.router.navigate([`/${RESPONSE.data.accion}`]);
+          this.router.navigate([`/peliculas/list`]);
 
         } else if (RESPONSE.data.valido === 0) {
           this.snackBar.open('Usuario inhabilitado', 'Cerrar', {duration: 5000});

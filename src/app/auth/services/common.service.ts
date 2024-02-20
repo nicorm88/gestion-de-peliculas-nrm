@@ -1,5 +1,7 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class CommonService {
   headers: HttpHeaders;
 
-  constructor() {
+  constructor(private cookieService: CookieService) {
     this.headers = new HttpHeaders({
       'Content-Type':  'application/json',
       Authorization : `Bearer ${localStorage.getItem('token')}`
@@ -16,40 +18,40 @@ export class CommonService {
     // console.log(this.cookieService.get('token'));
    }
 
-  public static divideEvenly(numerator: number, minPartSize: number):any {
+  public static divideEvenly(numerator: number, minPartSize: number): number[] {
     if (numerator / minPartSize < 2) {
       return [numerator];
     }
     return [minPartSize].concat(this.divideEvenly(numerator - minPartSize, minPartSize));
   }
 
-  public static divideCurrencyEvenly(numerator: number, divisor: number) {
-    const minPartSize = +(numerator / divisor).toFixed(2);
-    return this.divideEvenly(numerator * 100, minPartSize * 100).map( (v: number) => {
-      return (v / 100).toFixed(2);
+  public static divideCurrencyEvenly(numerator: number, divisor: number): number[] {
+    const minPartSize: number = +(numerator / divisor).toFixed(2);
+    return this.divideEvenly(numerator * 100, minPartSize * 100).map(v => {
+      return parseFloat((v / 100).toFixed(2));
     });
   }
 
   // devuelve la fecha en formato YYYY-MM-DD (string) teniendo en cuenta el UTC para las zonas horarias
-  public static fechaFormateada(inputDeFecha: string | number | Date) {
+  public static fechaFormateada(inputDeFecha: Date): string {
     return new Date(new Date(inputDeFecha).getTime() - (new Date(inputDeFecha).getTimezoneOffset() * 60000))
       .toISOString()
       .split('T')[0];
   }
 
-  public static fill = (n: number, x: number) =>
+  public static fill = (n: number, x: any): any[] =>
     Array(n).fill(x)
 
-  public static concat = (xs: any[], ys: any[]) =>
+  public static concat = (xs: any[], ys: any[]): any[] =>
     xs.concat(ys)
 
-  public static quotrem = (n: number, d: number) =>
+  public static quotrem = (n: number, d: number): [number, number] =>
     [Math.floor(n / d)
       , Math.floor(n % d
         )
     ]
 
-  public static distribute = (p: number, d: number, n: number) => {
+  public static distribute = (p: number, d: number, n: number): number[] => {
     const e =
       Math.pow(10, p);
 
@@ -69,24 +71,15 @@ export class CommonService {
     });
   }
 
-   base64toPDF(data: string, id: any) {
+  base64toPDF(data: string, id: string): void {
     const bufferArray = this.base64ToArrayBuffer(data);
     const blobStore = new Blob([bufferArray], { type: 'application/pdf' });
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blobStore);
-        return;
-    }
-    data = window.URL.createObjectURL(blobStore);
-    const link = document.createElement('a');
-    document.body.appendChild(link);
-    link.href = data;
-    link.download = `${id}.pdf`;
-    link.click();
-    window.URL.revokeObjectURL(data);
-    link.remove();
+    //@ts-ignore
+    window.navigator.msSaveOrOpenBlob(blobStore, `${id}.pdf`);
+    return;
   }
 
-  base64ToArrayBuffer(data: string) {
+  base64ToArrayBuffer(data: any) {
       const bString = window.atob(data);
       const bLength = bString.length;
       const bytes = new Uint8Array(bLength);
@@ -97,7 +90,7 @@ export class CommonService {
       return bytes;
   }
 
-  fechaFormateada(inputDeFecha: string | number | Date) {
+  fechaFormateada(inputDeFecha: any) {
     if (inputDeFecha) {
       return new Date(new Date(inputDeFecha).getTime() - (new Date(inputDeFecha).getTimezoneOffset() * 60000))
       .toISOString()
