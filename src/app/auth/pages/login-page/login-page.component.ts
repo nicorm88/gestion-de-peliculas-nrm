@@ -54,7 +54,8 @@ export class LoginComponent implements OnInit {
           console.log('ya he puesto el token');
           localStorage.setItem('token', RESPONSE.data.token);
           localStorage.setItem('usuario', RESPONSE.data.usuario);
-          localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
+          localStorage.setItem('id_rol', RESPONSE.data.id_rol);
+          localStorage.setItem('id_usuario', RESPONSE.data.id_usuario)
           localStorage.setItem('ultimaOpcion', RESPONSE.data.opcion);
           localStorage.setItem('ultimoGrupo', RESPONSE.data.grupo);
           this.commonService.headers = new HttpHeaders({

@@ -21,6 +21,11 @@
         Buscar
       </mat-list-item>
 
+      <mat-list-item routerLink="./favoritas" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>favorite</mat-icon>
+        Favoritas
+      </mat-list-item>
+
       <mat-list-item *ngIf="id_rol=='1'" routerLink="./users" (click)="sidenav.toggle()">
         <mat-icon matListItemIcon>account_circle</mat-icon>
         Usuarios

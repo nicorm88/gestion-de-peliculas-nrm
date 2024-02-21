@@ -13,7 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle'; // Importa MatButtonToggleModule aquí
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { CardBusquedaComponent } from './components/cardBusqueda/cardBusqueda.component';
-
+import { UsuariosComponent } from './pages/usuarios-page/usuarios.component';
+import { CrudMaterialModule } from '../shared/crud-material/crud-material.module';
+import { AddUsuarioComponent } from './pages/usuarios-page/add-usuario/add-usuario.component';
+import { EditUsuarioComponent } from './pages/usuarios-page/edit-usuario/edit-usuario.component';
+import { DeleteUsuarioComponent } from './pages/usuarios-page/delete-usuario/delete-usuario.component';
+import { FavoritasPageComponent } from './pages/favoritas-page/favoritas-page.component';
 @NgModule({
   declarations: [
     LayoutPageComponent,
@@ -22,12 +27,18 @@ import { CardBusquedaComponent } from './components/cardBusqueda/cardBusqueda.co
     ListPageComponent,
     PeliculaPageComponent,
     PeliculaImagePipe,
-    SearchPageComponent
+    SearchPageComponent,
+    UsuariosComponent,
+    AddUsuarioComponent,
+    EditUsuarioComponent,
+    DeleteUsuarioComponent,
+    FavoritasPageComponent
   ],
   imports: [
     CommonModule,
     PeliculasRoutingModule,
     MaterialModule,
+    CrudMaterialModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatButtonToggleModule // Añade MatButtonToggleModule aquí

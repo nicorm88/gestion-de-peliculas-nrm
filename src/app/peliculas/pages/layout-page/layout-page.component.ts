@@ -1,4 +1,4 @@
-import { Usuario } from './../../../auth/interfaces/usuario';
+import { Usuario } from '../../interfaces/usuario';
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -24,6 +24,7 @@ export class LayoutPageComponent implements OnInit{
   public sidebarItems = [
     { label: 'Listado', icon: 'label', url: './list' },
     { label: 'Buscar', icon: 'search', url: './search' },
+    { label: 'Favoritas', icon: 'favorite', url: './favoritas' },
     { label: 'Usuarios', icon: 'account_circle', url: './users' }
   ]
 

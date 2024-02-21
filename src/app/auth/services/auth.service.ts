@@ -6,7 +6,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 import { ApiResponse } from '../interfaces/api-response';
 
 import { CommonService } from './common.service';
-import { Usuario } from '../interfaces/usuario';
+import { Usuario } from '../../peliculas/interfaces/usuario';
 
 const urlSGE : string = enviromentsSGE.baseUrl;
 

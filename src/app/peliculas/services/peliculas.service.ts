@@ -1,15 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Pelicula, PeliculaBuscada, TopLevel } from "../interfaces/pelicula.interface";
+import { Pelicula, PeliculaBuscada, TopLevel } from '../interfaces/pelicula.interface';
 import { Observable, catchError, map, of } from "rxjs";
-import { FILM_HEADER, enviroments } from "src/environments/environments";
+import { FILM_HEADER, enviroments, enviromentsSGE } from "src/environments/environments";
 import { FechaHoraService } from "./fecha.service";
 import { TopLevel as TopLevelBusqueda } from "../interfaces/busqueda.interface";
+import { ApiResponse } from "src/app/auth/interfaces/api-response";
 
 @Injectable({providedIn: 'root'})
 export class PeliculaService {
 
   private baseUrl: string = enviroments.baseUrl
+  private baseUrlSGE: string = enviromentsSGE.baseUrl
+  commonService: any;
+
   constructor(
     private http: HttpClient,
     private fechaService: FechaHoraService
@@ -41,5 +45,23 @@ export class PeliculaService {
         map( response => true ),
         catchError( error => of(false) )
       )
+  }
+
+  async getFavoritas(id_usuario: string | null): Promise<PeliculaBuscada[]> {
+
+    const RESPONSE = await this.http.get<ApiResponse>(`${this.baseUrlSGE}/favoritas.php`, { headers: this.commonService.headers }).toPromise()
+    let peliculas : PeliculaBuscada[] = []
+    let id_pelados : string[]
+    id_pelados = RESPONSE?.data.map((item: {id_pelicula:any }) => item.id_pelicula)
+    id_pelados.forEach((id: string) => {
+      this.getPeliculaById(id).subscribe(
+        (pelicula) => {
+          peliculas.push(pelicula)
+        }
+      )
+    });
+
+    return peliculas
+
   }
 }
