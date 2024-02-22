@@ -1,6 +1,19 @@
 <div class="grid mb-8" style="margin-left: 10%; margin-right: 10%; margin-top: 5px;">
-  <div *ngFor="let pelicula of favoritas"
-    class="col-12 sm:col-4 md:col-3 x1:col-2" >
-    <peliculas-pelicula-card-busqueda [pelicula]="pelicula"></peliculas-pelicula-card-busqueda>
+  <div *ngFor="let pelicula of pelis_fav"
+    class="col-12 sm:col-4 md:col-3 x1:col-4" >
+    <div class="card">
+      <img [src]=" pelicula | peliculaImage" alt="{{ pelicula.title }} Poster">
+        <div class="descriptions">
+            <h1>{{pelicula.title}}</h1>
+            <div class="overview">
+              <p>
+                  {{pelicula.overview}}
+              </p>
+            </div>
+            <button (click)="navigateToDetails(pelicula.id)">
+                Ver mas detalles
+            </button>
+        </div>
+    </div>
   </div>
   </div>

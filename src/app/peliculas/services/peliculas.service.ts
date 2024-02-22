@@ -6,17 +6,19 @@ import { FILM_HEADER, enviroments, enviromentsSGE } from "src/environments/envir
 import { FechaHoraService } from "./fecha.service";
 import { TopLevel as TopLevelBusqueda } from "../interfaces/busqueda.interface";
 import { ApiResponse } from "src/app/auth/interfaces/api-response";
+import { CommonService } from "src/app/auth/services/common.service";
 
 @Injectable({providedIn: 'root'})
 export class PeliculaService {
 
   private baseUrl: string = enviroments.baseUrl
   private baseUrlSGE: string = enviromentsSGE.baseUrl
-  commonService: any;
+  public listaFavs: string[] = []
 
   constructor(
     private http: HttpClient,
-    private fechaService: FechaHoraService
+    private fechaService: FechaHoraService,
+    private commonService: CommonService
     ) { }
 
   getPeliculas(): Observable<TopLevel> {
@@ -47,21 +49,16 @@ export class PeliculaService {
       )
   }
 
-  async getFavoritas(id_usuario: string | null): Promise<PeliculaBuscada[]> {
+  getFavoritas(id_usuario: string | null): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrlSGE}/favoritas.php?id_usuario=${id_usuario}`, { headers: this.commonService.getHeaders() })
+  }
 
-    const RESPONSE = await this.http.get<ApiResponse>(`${this.baseUrlSGE}/favoritas.php`, { headers: this.commonService.headers }).toPromise()
-    let peliculas : PeliculaBuscada[] = []
-    let id_pelados : string[]
-    id_pelados = RESPONSE?.data.map((item: {id_pelicula:any }) => item.id_pelicula)
-    id_pelados.forEach((id: string) => {
-      this.getPeliculaById(id).subscribe(
-        (pelicula) => {
-          peliculas.push(pelicula)
-        }
-      )
-    });
+  addFavorita(id_pelicula: number, id_usuario: string): Observable<ApiResponse>{
+    const body = JSON.stringify({ id_pelicula: id_pelicula, id_usuario: id_usuario });
+    return this.http.post<ApiResponse>(`${this.baseUrlSGE}/favoritas.php`,body, { headers: this.commonService.getHeaders() })
+  }
 
-    return peliculas
-
+  deleteFavorita(id_pelicula: number, id_usuario: string): Observable<ApiResponse>{
+    return this.http.delete<ApiResponse>(`${this.baseUrlSGE}/favoritas.php?id_pelicula=${id_pelicula}&id_usuario=${id_usuario}`, { headers: this.commonService.getHeaders() });
   }
 }

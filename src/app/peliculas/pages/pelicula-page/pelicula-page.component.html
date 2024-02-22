@@ -22,10 +22,15 @@
     </div>
     <div class="movie_social">
       <ul>
-        <li><i class="material-icons"></i></li>
+        <li *ngIf="getIsFav()">
+          <i class="material-icons" (click)="anadirFav()"><mat-icon style="color: red;">favorite</mat-icon></i>
+        </li>
+        <li *ngIf="!getIsFav()">
+          <i class="material-icons" (click)="quitarFav()"><mat-icon >favorite</mat-icon></i>
+        </li>
       </ul>
       <ul class="bottom_right_button">
-        <li><button mat-raised-button color="primary" [routerLink]="['/peliculas/list']" style="background-color: grey;"><mat-icon>arrow_back</mat-icon>Volver</button></li>
+        <li><button mat-raised-button color="primary" [routerLink]="['../']" style="background-color: grey;"><mat-icon>arrow_back</mat-icon>Volver</button></li>
       </ul>
     </div>
   </div>

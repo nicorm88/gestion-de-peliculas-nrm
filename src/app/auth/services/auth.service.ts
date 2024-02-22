@@ -30,7 +30,7 @@ export class AuthService {
 
   doLogin(data: any) {
     const body = JSON.stringify(data);
-    return this.http.post<ApiResponse>(`${urlSGE}/login.php`, body);
+    return this.http.post<ApiResponse>(`${urlSGE}/login.php`, body, {headers:this.commonService.getHeaders()});
   }
 
   public async isAuthenticated(url: string): Promise<boolean> {
