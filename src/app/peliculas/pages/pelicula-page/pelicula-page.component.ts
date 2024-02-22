@@ -68,12 +68,17 @@ export class PeliculaPageComponent implements OnInit{
   }
 
   async anadirFav(){
-    this.peliculaService.addFavorita(this.pelicula!.id,this.id_usuario!).toPromise()
-    this.getFavoritas()
+    const RESPONSE = await this.peliculaService.addFavorita(this.pelicula!.id,this.id_usuario!).toPromise()
+    if(RESPONSE!.ok){
+      this.getFavoritas()
+    }
   }
 
   async quitarFav(){
-    this.peliculaService.deleteFavorita(this.pelicula!.id,this.id_usuario!).toPromise()
-    this.getFavoritas()
+    const RESPONSE = await this.peliculaService.deleteFavorita(this.pelicula!.id,this.id_usuario!).toPromise()
+    if(RESPONSE!.ok){
+      this.getFavoritas()
+    }
+
   }
 }

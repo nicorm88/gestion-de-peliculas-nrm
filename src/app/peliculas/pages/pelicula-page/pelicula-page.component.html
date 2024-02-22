@@ -23,10 +23,10 @@
     <div class="movie_social">
       <ul>
         <li *ngIf="getIsFav()">
-          <i class="material-icons" (click)="anadirFav()"><mat-icon style="color: red;">favorite</mat-icon></i>
+          <i class="material-icons" (click)="quitarFav()"><mat-icon style="color: red;">favorite</mat-icon></i>
         </li>
         <li *ngIf="!getIsFav()">
-          <i class="material-icons" (click)="quitarFav()"><mat-icon >favorite</mat-icon></i>
+          <i class="material-icons" (click)="anadirFav()"><mat-icon >favorite</mat-icon></i>
         </li>
       </ul>
       <ul class="bottom_right_button">
